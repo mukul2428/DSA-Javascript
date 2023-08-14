@@ -1,0 +1,35 @@
+body{
+    background: linear-gradient(to right, #041308, #0b3317);
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box{
+    width: 200px;
+    height: 200px;
+    /* taking background image from unsplah */
+    background-image: url(https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80);
+    background-size: cover; 
+    /* initially setting size to take all space */
+    background-position: top;
+    /* initially position to top */
+    background-color: #222;
+    background-blend-mode: hard-light;
+    /* now position of card */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; 
+    /* this is color of text - hill */
+    transition: all 1s ease-in-out;
+}
+
+/* now hover property */
+.box:hover{
+    background-color: #999;
+    /* changing color on hover */
+    background-position: center;
+    box-shadow: 0 0 4px #fff;
+}

@@ -1,0 +1,6 @@
+/* using pseudo selector */
+
+::selection{
+    color: red;
+    background-color: yellow;
+}
