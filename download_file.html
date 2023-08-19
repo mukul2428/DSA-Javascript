@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Download Example</title>
+</head>
+<body>
+  <button id="downloadButton">Download File</button>
+
+  <script>
+    //function to download a file from url
+    function downloadFile(url, fileName){
+      //fetch the file from URL
+      fetch(url)
+        .then(response => response.blob()) //get the response as a blob
+        .then(blob => {
+          //create a temporary link for blob
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob); //set the link's URL
+          link.download = fileName; //set the suggested filename for the download
+
+          link.click(); // trigger download
+          URL.revokeObjectURL(link.href);//clean up temporary URL
+        })
+        .catch(err =>{
+          console.log(err);
+        })
+    }
+    const downloadButton = document.getElementById('downloadButton');
+
+    const fileUrl = 'https://example.com/path/to/your/file.pdf';
+
+    const fileName = 'downloaded_file.pdf';
+
+    downloadButton.addEventListener('click', function() {
+      // Call the downloadFile function when the button is clicked
+      downloadFile(fileUrl, fileName);
+    });
+
+  </script>
+</body>
+</html>
