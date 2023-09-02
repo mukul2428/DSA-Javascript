@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link id="favicon" rel="icon" href="favicons/favicon1.ico" type="image/x-icon">
+  <title>Changing Favicon</title>
+</head>
+<body>
+  <script>
+    const numFavicons = 10;
+    const faviconArray = [];
+    for(let i = 1; i <= numFavicons; i++){
+      faviconArray.push(`favicons/favicon${i}.ico`);
+    }
+    let currentFavicoIndex = 0;
+
+    function changeFavicon(){
+      const faviconLink = document.getElementById("favicon");
+      faviconLink.href = faviconArray[currentFaviconIndex];
+      currentFaviconIndex = (currentFaviconIndex + 1) % numFavicons;
+    }
+    const intervalId = setInterval(changeFavicon, 1000);
+  </script>
+</body>
+</html>
