@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copy To Clipboard</title>
+  </head>
+  <body>
+    <br><br><br>
+    <input type="text" value="ViralCoder" id="copytxt" />
+    <button onclick="CopyText()">Copy text</button>
+    <p id="content"></p>
+
+    <script>
+      function CopyText() {
+        let copiedText = document.getElementById("copytxt");
+
+        copiedText.select();
+        document.execCommand("copy");
+
+        document.getElementById("content").innerHTML =
+          "Copied the text: " + copiedText.value;
+      }
+    </script>
+  </body>
+</html>
