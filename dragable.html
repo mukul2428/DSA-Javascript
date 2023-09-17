@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Draggable Element</title>
+    <style>
+        body{
+            background-color: #1E1C27;
+        }
+        div{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px; height: 50px; background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <div draggable="true">
+        Drag me!
+    </div>
+    <script>
+        const draggableElement = document.querySelector('div');
+
+        draggableElement.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', 'This is being dragged.');
+        });
+    </script>
+</body>
+</html>
