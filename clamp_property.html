@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Box with Clamp</title>
+    <style>
+        .box {
+            width: clamp(300px, 60%, 600px); 
+            /* Responsive width between 300px and 600px */
+            padding: 20px;
+            border: 2px solid #333;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h1 {
+            font-size: clamp(24px, 5vw, 48px); 
+            /* Responsive font size between 24px and 48px */
+        }
+        p {
+            font-size: clamp(16px, 3vw, 24px); 
+            /* Responsive font size between 16px and 24px */
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body style="background-color: #1E1C27; color: white;">
+    <div class="box">
+        <h1>This is a Responsive Box</h1>
+        <img src="tiger.jpg" alt="Image Description">
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur earum rem deserunt optio est officiis delectus, sed iusto saepe aperiam placeat voluptate tenetur at accusamus odit distinctio quidem eius veniam ratione totam repudiandae dolorum deleniti dignissimos perferendis. Laudantium, provident asperiores?.</p>
+    </div>
+</body>
+</html>

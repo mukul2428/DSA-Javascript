@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attr</title>
+    <style>
+        body{
+            background-color: #1E1C27;
+        }
+        li{
+            color: white;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+        a::after{
+            content: attr(title);
+            position: relative;
+            top: -.5rem;
+            right: -.2rem;
+            border-radius: 2px;
+            padding: 2px 5px;
+            color: white;
+            background-color: brown;
+            font-size: 6px;
+        }
+
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a title="1" href="">About</a></li>
+        <li><a title="2" href="">Home</a></li>
+        <li><a title="3" href="">Contact</a></li>
+    </ul>
+</body>
+</html>

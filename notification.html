@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viral Coder</title>
+    <link id="favicon" rel="icon" href="favicons/favicon1.ico" type="image/x-icon">
+    <script>
+        function flashTitleNotification() {
+            var originalTitle = document.title;
+            var isFlash = false;
+            function changeTitle() {
+                document.title = isFlash ? 
+                "(10) New Message Received" : originalTitle;
+                isFlash = !isFlash;
+            }
+            setInterval(changeTitle, 1000); 
+            // Change title every second (1000 milliseconds)
+        }
+        // Call the function when the window is loaded
+        window.onload = flashTitleNotification;
+    </script>
+</head>
+<body style="background-color: #1E1C27;">
+    
+</body>
+</html>

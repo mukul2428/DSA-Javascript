@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Camera and Microphone Access</title>
+  </head>
+  <body style="background-color: #1e1c27; color: white">
+    <h3>Camera and Microphone Access Example</h3>
+
+    <button id="cameraButton">Access Camera</button>
+    <button id="microphoneButton">Access Microphone</button>
+
+    <video id="videoElement" autoplay></video>
+
+    <script>
+      const videoElement = document.getElementById("videoElement");
+      const cameraButton = document.getElementById("cameraButton");
+      const microphoneButton = document.getElementById("microphoneButton");
+
+      // Function to access camera
+      const accessCamera = () => {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then((stream) => {
+            videoElement.srcObject = stream;
+          })
+          .catch((error) => {
+            console.error("Error accessing the camera:", error);
+          });
+      };
+
+      // Function to access microphone
+      const accessMicrophone = () => {
+        navigator.mediaDevices
+          .getUserMedia({ audio: true })
+          .then((stream) => {
+            // You can use the microphone
+            // stream for audio recording or processing
+          })
+          .catch((error) => {
+            console.error("Error accessing the microphone:", error);
+          });
+      };
+
+      // Add click event listeners to the buttons
+      cameraButton.addEventListener("click", accessCamera);
+      microphoneButton.addEventListener("click", accessMicrophone);
+    </script>
+  </body>
+</html>
