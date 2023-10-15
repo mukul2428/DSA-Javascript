@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Geolocation Example</title>
+  </head>
+
+  <body>
+
+    <!-- Add a button to trigger the location request -->
+    <button onclick="getLocation()">Share My Location</button>
+
+    <script>
+      function getLocation() {
+        // Check if Geolocation is supported in the browser
+        if ("geolocation" in navigator) {
+          // Request location permission
+          navigator.geolocation.getCurrentPosition(
+            successCallback,
+            errorCallback
+          );
+        } else {
+          // Geolocation is not supported in this browser
+          console.log("Geolocation is not supported in this browser.");
+        }
+      }
+      function successCallback(position) {
+        // The user's location is available in the position object
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        console.log("Latitude: " + latitude + ", Longitude: " + longitude);
+
+        // Do something with the latitude and longitude, e.g., display it on a map
+      }
+
+      function errorCallback(error) {
+        // Handle errors here
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            console.log("User denied the request for Geolocation.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            console.log("Location information is unavailable.");
+            break;
+          case error.TIMEOUT:
+            console.log("The request to get user location timed out.");
+            break;
+          case error.UNKNOWN_ERROR:
+            console.log("An unknown error occurred.");
+            break;
+        }
+      }
+    </script>
+  </body>
+</html>

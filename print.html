@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Print Example</title>
+    <style>body{
+        background-color: #1e1c27;
+        color: white;
+    }</style>
+</head>
+<body>
+    <h3>Click the button to print</h3>
+    <button id="printButton">Print</button>
+
+    <script>
+        // Get a reference to the button element
+        var printButton = document.getElementById("printButton");
+
+        // Add a click event listener to the button
+        printButton.addEventListener("click", function() {
+            // Print the content of the page
+            window.print();
+        });
+    </script>
+</body>
+</html>

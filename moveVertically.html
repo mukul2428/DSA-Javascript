@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth", // 'smooth' for smooth scrolling, 'auto' for instant scrolling
+        });
+      }
+      function scrollToBottom() {
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    </script>
+  </head>
+  <body style="background-color: #1E1C27; color: white;">
+    <button onclick="scrollToBottom()">Scroll to Bottom</button>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit nam nostrum voluptate, asperiores voluptatibus eaque minus at. Quas dolorem laborum inventore similique libero, fugiat perferendis numquam vel et minima placeat, cumque reiciendis aperiam neque magnam atque consequuntur repudiandae sapiente consequatur.</p>
+    <p>Facere eligendi voluptatibus vero sed laboriosam assumenda blanditiis amet voluptate molestias quos, quod deleniti omnis soluta earum officiis eveniet deserunt fugit iure autem sunt at hic! Corporis fugit minima numquam aut voluptates quidem sit accusamus. Quae reiciendis repellendus qui saepe!</p>
+    <p>Atque odit eius culpa doloremque accusamus optio dolorem ab delectus facere dolores beatae, magni omnis illo! Dolorum accusamus dolor a distinctio fugiat excepturi dicta ut sapiente accusantium hic, error nobis, dolore ipsum quis tempora quos numquam explicabo ullam delectus praesentium?</p>
+    <p>Magni, veritatis eveniet? Culpa consequatur tempore unde sit laboriosam quam fugiat adipisci mollitia obcaecati consequuntur voluptate ipsa, quia eveniet vel ad ea nulla sed enim repellat aut perferendis exercitationem ab dolor similique. Facilis provident eligendi porro suscipit placeat at ut?</p>
+    <button onclick="scrollToTop()">Scroll to Top</button>
+  </body>
+</html>
