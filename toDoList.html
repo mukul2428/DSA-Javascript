@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        background-color: #1e1c27;
+      }
+
+      #todo-container {
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        width: 300px;
+        text-align: center;
+      }
+
+      h2 {
+        color: #333;
+      }
+
+      #taskList {
+        margin-top: 20px;
+      }
+
+      #taskInput {
+        width: 200px;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+
+      #addBtn {
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+      }
+
+      #addBtn:hover {
+        background-color: #45a049;
+      }
+
+      .taskItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #eee;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+
+      .editBtn,
+      .deleteBtn {
+        background-color: #f44336;
+        color: #fff;
+        border: none;
+        padding: 6px 12px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+      }
+
+      .editBtn:hover,
+      .deleteBtn:hover {
+        background-color: #d32f2f;
+      }
+      .todo{
+        color: white;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <h2 class="todo">To-Do List</h2>
+
+      <input type="text" id="taskInput" placeholder="Add a new task" />
+      <button id="addBtn" onclick="addTask()">Add</button>
+
+      <div id="taskList"></div>
+    </div>
+
+    <script>
+      // Function to add a new task
+      function addTask() {
+        var taskInput = document.getElementById("taskInput");
+        var taskText = taskInput.value.trim();
+
+        if (taskText !== "") {
+          // Check if the task list is already stored in session storage
+          var tasks = JSON.parse(sessionStorage.getItem("tasks")) || [];
+
+          // Add the new task to the list
+          tasks.push(taskText);
+
+          // Save the updated task list to session storage
+          sessionStorage.setItem("tasks", JSON.stringify(tasks));
+
+          // Display the tasks
+          displayTasks();
+
+          // Clear the input field
+          taskInput.value = "";
+        }
+      }
+
+      // Function to display tasks
+      function displayTasks() {
+        var taskListDiv = document.getElementById("taskList");
+        taskListDiv.innerHTML = "";
+
+        // Retrieve the task list from session storage
+        var tasks = JSON.parse(sessionStorage.getItem("tasks")) || [];
+
+        // Display each task with edit and delete buttons
+        tasks.forEach(function (task, index) {
+          var taskItemDiv = document.createElement("div");
+          taskItemDiv.className = "taskItem";
+
+          var taskTextSpan = document.createElement("span");
+          taskTextSpan.textContent = task;
+
+          var editBtn = document.createElement("span");
+          editBtn.className = "editBtn";
+          editBtn.textContent = "Edit";
+          editBtn.onclick = function () {
+            editTask(index);
+          };
+
+          var deleteBtn = document.createElement("span");
+          deleteBtn.className = "deleteBtn";
+          deleteBtn.textContent = "Delete";
+          deleteBtn.onclick = function () {
+            deleteTask(index);
+          };
+
+          taskItemDiv.appendChild(taskTextSpan);
+          taskItemDiv.appendChild(editBtn);
+          taskItemDiv.appendChild(deleteBtn);
+
+          taskListDiv.appendChild(taskItemDiv);
+        });
+      }
+
+      // Function to edit a task
+      function editTask(index) {
+        var tasks = JSON.parse(sessionStorage.getItem("tasks")) || [];
+        var updatedTask = prompt("Edit task:", tasks[index]);
+
+        if (updatedTask !== null) {
+          tasks[index] = updatedTask;
+          sessionStorage.setItem("tasks", JSON.stringify(tasks));
+          displayTasks();
+        }
+      }
+
+      // Function to delete a task
+      function deleteTask(index) {
+        var tasks = JSON.parse(sessionStorage.getItem("tasks")) || [];
+        tasks.splice(index, 1);
+        sessionStorage.setItem("tasks", JSON.stringify(tasks));
+        displayTasks();
+      }
+
+      // Display initial tasks on page load
+      displayTasks();
+    </script>
+  </body>
+</html>

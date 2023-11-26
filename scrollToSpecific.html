@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Optional: Some styling for the sections and buttons */
+    body {
+      margin: 0;
+      padding: 0;            background-color: #1e1c27;
+      color: white;
+    }
+
+    section {
+      height: 500px;
+      margin: 20px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    button {
+      margin: 10px;
+      padding: 5px 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* Style for transparent sticky buttons */
+    .sticky-buttons {
+      position: sticky;
+      top: 0;
+      background-color: #1e1c273b;
+      padding: 10px;
+      z-index: 100;
+    }
+  </style>
+  <title>Scroll to Specific Section</title>
+</head>
+<body>
+
+  <div class="sticky-buttons">
+    <button onclick="scrollToSection('section1')">Scroll to Section 1</button>
+    <button onclick="scrollToSection('section2')">Scroll to Section 2</button>
+    <button onclick="scrollToSection('section3')">Scroll to Section 3</button>
+  </div>
+
+  <section id="section1">
+    <h2>Section 1</h2>
+    <p>Content for section 1...</p>
+  </section>
+
+  <section id="section2">
+    <h2>Section 2</h2>
+    <p>Content for section 2...</p>
+  </section>
+
+  <section id="section3">
+    <h2>Section 3</h2>
+    <p>Content for section 3...</p>
+  </section>
+
+  <!-- Add more sections as needed -->
+
+  <script>
+    // Function to scroll to a specific section
+    function scrollToSection(sectionId) {
+      var section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  </script>
+
+</body>
+</html>

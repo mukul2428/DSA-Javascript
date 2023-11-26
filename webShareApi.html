@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Share API Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 40px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body style="background-color: #1e1c27; color: white">
+    <h1>Web Share API - Youtube</h1>
+
+    <button id="shareButton">Share Content</button>
+
+    <script>
+      document
+        .getElementById("shareButton")
+        .addEventListener("click", async () => {
+          try {
+            // Check if the Web Share API is supported
+            const data = {
+              title: "OP Youtube Channel",
+              text: "Check out this Awesome Youtube Channel for coding",
+              url: "https://www.youtube.com/@viral_coder",
+            };
+            if (navigator.canShare && navigator.canShare(data)) {
+              navigator.share(data);
+              console.log("Shared successfully!");
+            } else {
+              console.error("Web Share API not supported");
+            }
+          } catch (error) {
+            console.error("Error sharing:", error);
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirmation Dialog</title>
+  </head>
+
+  <body style="color: white; background-color: #1e1c27">
+    <h1>Confirmation Screen</h1>
+
+    <button onclick="showConfirmation()">Click to Proceed</button>
+
+    <script>
+      function showConfirmation() {
+        var result = window.confirm("Are you sure you want to proceed?");
+        if (result) {
+          alert("You clicked OK!");
+          // Code to execute if the user clicked OK
+        } else {
+          alert("You clicked Cancel!");
+          // Code to execute if the user clicked Cancel
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Game</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #1E1C27;
+      }
+
+      .container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 300px;
+        text-align: center;
+        padding: 28px;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .answer-buttons button {
+        font-size: 16px;
+        padding: 10px;
+        margin: 5px;
+        width: 80%;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        transition: background-color 0.3s ease;
+      }
+
+      .answer-buttons button.selected {
+        background-color: #ddd;
+      }
+
+      /* .answer-buttons button.correct {
+        background-color: #8bc34a;
+      }
+
+      .answer-buttons button.incorrect {
+        background-color: #ff5722;
+      } */
+
+      .answer-buttons button:hover {
+        background-color: #eee;
+      }
+
+      .submit-button,
+      .restart-button {
+        font-size: 16px;
+        padding: 10px;
+        margin: 30px;
+        width: 80%;
+        cursor: pointer;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+
+      .submit-button:hover,
+      .restart-button:hover {
+        background-color: #45a049;
+      }
+
+      #results {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Quiz Game</h1>
+      <div id="question-container" class="question-container"></div>
+      <div id="answer-buttons" class="answer-buttons"></div>
+      <button
+        id="submit-button"
+        class="submit-button"
+        onclick="submitQuiz()"
+        style="display: none"
+      >
+        Submit
+      </button>
+      <div id="results"></div>
+      <button
+        id="restart-button"
+        class="restart-button"
+        onclick="startGame()"
+        style="display: none"
+      >
+        Restart Quiz
+      </button>
+    </div>
+    <script>
+      const questions = [
+        {
+          question: "What is the capital of India?",
+          answers: [
+            { text: "Paris", correct: true },
+            { text: "Berlin", correct: false },
+            { text: "New Delhi", correct: false },
+            { text: "Rome", correct: false },
+          ],
+        },
+        {
+          question: "Which planet is known as the Red Planet?",
+          answers: [
+            { text: "Mars", correct: true },
+            { text: "Venus", correct: false },
+            { text: "Jupiter", correct: false },
+            { text: "Saturn", correct: false },
+          ],
+        },
+        {
+          question: "What is the largest mammal in the world?",
+          answers: [
+            { text: "Elephant", correct: false },
+            { text: "Blue Whale", correct: true },
+            { text: "Giraffe", correct: false },
+            { text: "Gorilla", correct: false },
+          ],
+        },
+        {
+          question: "What is the Admin name of Viral Coder Channel?",
+          answers: [
+            { text: "Binod", correct: false },
+            { text: "Mukesh", correct: true },
+            { text: "Mukul", correct: false },
+            { text: "Kohli", correct: false },
+          ],
+        },
+      ];
+
+      let currentQuestionIndex = 0;
+      let correctAnswers = 0;
+      let incorrectAnswers = 0;
+
+      const questionContainer = document.getElementById("question-container");
+      const answerButtons = document.getElementById("answer-buttons");
+      const submitButton = document.getElementById("submit-button");
+      const resultsDiv = document.getElementById("results");
+      const restartButton = document.getElementById("restart-button");
+
+      function startGame() {
+        currentQuestionIndex = 0;
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+        resultsDiv.innerHTML = "";
+        showQuestion(questions[currentQuestionIndex]);
+        submitButton.style.display = "block";
+        restartButton.style.display = "none";
+      }
+
+      function showQuestion(question) {
+        questionContainer.innerHTML = question.question;
+        answerButtons.innerHTML = "";
+        question.answers.forEach((answer) => {
+          const button = document.createElement("button");
+          button.innerText = answer.text;
+          button.classList.add("btn");
+          button.addEventListener("click", () => selectAnswer(answer));
+          answerButtons.appendChild(button);
+        });
+      }
+
+      function selectAnswer(answer) {
+        // Remove the "selected" class from all buttons
+        const buttons = document.querySelectorAll(".answer-buttons button");
+        buttons.forEach((button) => button.classList.remove("selected"));
+
+        // Add the "selected" class to the clicked button
+        event.target.classList.add("selected");
+      }
+
+      function submitQuiz() {
+        const selectedButton = document.querySelector(
+          ".answer-buttons button.selected"
+        );
+
+        // Check if an answer is selected
+        if (selectedButton) {
+          // Check if the selected answer is correct
+          if (
+            questions[currentQuestionIndex].answers.find(
+              (answer) => answer.text === selectedButton.innerText
+            ).correct
+          ) {
+            // selectedButton.classList.add("correct");
+            correctAnswers++;
+          } else {
+            // selectedButton.classList.add("incorrect");
+            incorrectAnswers++;
+          }
+
+          // Increment question index
+          currentQuestionIndex++;
+
+          // Check if there are more questions
+          if (currentQuestionIndex < questions.length) {
+            showQuestion(questions[currentQuestionIndex]);
+          } else {
+            // End of the quiz
+            showResults();
+          }
+        } else {
+          alert("Please select an answer before submitting.");
+        }
+      }
+
+      function showResults() {
+        // Disable all buttons
+        const buttons = document.querySelectorAll(".answer-buttons button");
+        buttons.forEach((button) => (button.disabled = true));
+
+        // Disable the submit button
+        submitButton.style.display = "none";
+
+        // Display the results
+        resultsDiv.innerHTML = `<p>Quiz Completed!</p>
+                                    <p>Correct Answers: ${correctAnswers}</p>
+                                    <p>Incorrect Answers: ${incorrectAnswers}</p>`;
+
+        // Show restart button
+        restartButton.style.display = "block";
+      }
+
+      // Start the game when the page loads
+      startGame();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Changing Div</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        flex-direction: column;
+        background-color: #1E1C27;
+      }
+
+      #colorContainer {
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+        background-color: #ccc;
+        transition: background-color 0.3s ease;
+      }
+
+      #colorDropdown {
+        margin-top: 20px;
+        width: 150px; /* Adjust the width as needed */
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="colorContainer"></div>
+
+    <select id="colorDropdown" onchange="changeColor()">
+      <option value="red">Red</option>
+      <option value="green">Green</option>
+      <option value="blue">Blue</option>
+      <option value="yellow">Yellow</option>
+      <option value="purple">Purple</option>
+    </select>
+
+    <script>
+      function changeColor() {
+        var selectedColor = document.getElementById("colorDropdown").value;
+        document.getElementById("colorContainer").style.backgroundColor =
+          selectedColor;
+      }
+    </script>
+  </body>
+</html>

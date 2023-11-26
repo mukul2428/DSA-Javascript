@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Indian Cricket Legends</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #1e1c27;
+      }
+
+      .container {
+        position: relative;
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        background: url("cricket_background.jpg") center/cover no-repeat;
+        max-width: 400px;
+        width: 100%;
+        box-sizing: border-box;
+        z-index: 1;
+      }
+
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("cricket_background.jpg") center/cover no-repeat;
+        filter: blur(50px);
+        opacity: 0.7;
+        z-index: -1;
+        border-radius: 10px;
+      }
+
+      h2 {
+        color: orange;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #fff;
+      }
+
+      select,
+      input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #333;
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+
+      select {
+        transition: background-color 0.3s;
+      }
+
+      select:hover {
+        background-color: #e0e0e0;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #004080;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Indian Cricket Legends</h2>
+
+      <label for="cricketLegends">Select or Type a Legend:</label>
+      <select id="cricketLegends" onchange="updateInputField()">
+        <option value="sachin">Sachin Tendulkar</option>
+        <option value="dhoni">MS Dhoni</option>
+        <option value="virat">Virat Kohli</option>
+        <option value="rahul">Rahul Dravid</option>
+        <option value="viral">Viral Coder</option>
+        <!-- Add more legends as needed -->
+      </select>
+
+      <label for="inputField">Selected Legend:</label>
+      <input type="text" id="inputField" oninput="updateDropdownSelection()" />
+    </div>
+
+    <script>
+      function updateInputField() {
+        var selectedValue = document.getElementById("cricketLegends").value;
+        document.getElementById("inputField").value = selectedValue;
+      }
+
+      function updateDropdownSelection() {
+        var inputValue = document
+          .getElementById("inputField")
+          .value.toLowerCase();
+        var dropdown = document.getElementById("cricketLegends");
+
+        for (var i = 0; i < dropdown.options.length; i++) {
+          var legendName = dropdown.options[i].text.toLowerCase();
+          if (legendName.includes(inputValue)) {
+            dropdown.selectedIndex = i;
+            break;
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
