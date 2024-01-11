@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online/Offline Status Checker</title>
+  </head>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #1e1c27;
+    }
+
+    .status-container {
+      text-align: center;
+    }
+
+    #status-indicator {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      color: #fff;
+      width: 163px;
+    }
+
+    .online {
+      background-color: #4caf50;
+    }
+
+    .offline {
+      background-color: #f44336;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const statusIndicator = document.getElementById("status-indicator");
+      function updateStatus() {
+        if (navigator.onLine) {
+          statusIndicator.textContent = "You are Online";
+          statusIndicator.classList.remove("offline");
+          statusIndicator.classList.add("online");
+        } else {
+          statusIndicator.textContent = "You are Offline";
+          statusIndicator.classList.remove("online");
+          statusIndicator.classList.add("offline");
+        }
+      }
+      // Initial status check
+      updateStatus();
+      // Event listener for online/offline events
+      window.addEventListener("online", updateStatus);
+      window.addEventListener("offline", updateStatus);
+    });
+  </script>
+  <body>
+    <div class="status-container">
+      <div id="status-indicator" class="offline">Offline</div>
+    </div>
+  </body>
+</html>

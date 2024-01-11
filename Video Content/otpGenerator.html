@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OTP Generator</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap");
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Outfit", sans-serif;
+      }
+      body {
+        background-color: #1b76f2;
+      }
+      .otp-container {
+        background-color: #1a1820;
+        width: min(37.5em, 90%);
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        padding: 3em;
+        border-radius: 0.5em;
+      }
+      .otp-title {
+        text-align: center;
+        font-weight: 500;
+        color: #ffffff;
+      }
+      .otp-button {
+        font-size: 1em;
+        background-color: #1b76f2;
+        display: block;
+        margin: 2em auto;
+        padding: 1em;
+        color: #ffffff;
+        border: none;
+        outline: none;
+        border-radius: 0.3em;
+        cursor: pointer;
+      }
+      .otp-display {
+        font-size: 1em;
+        background-color: #2a292e;
+        color: #ffffff;
+        letter-spacing: 1em;
+        text-align: center;
+        padding: 1em 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="otp-container">
+      <h1 class="otp-title">OTP Generator</h1>
+      <button class="otp-button" id="generateBtn">Generate OTP</button>
+      <p class="otp-display" id="otpDisplay"></p>
+    </div>
+    <script>
+      let generateOTP = () => {
+        const otpLength = 6;
+        const otp = Math.floor(100000 + Math.random() * 900000);
+        document.getElementById("otpDisplay").innerText = `${otp}`;
+      };
+      document
+        .getElementById("generateBtn")
+        .addEventListener("click", generateOTP);
+      window.addEventListener("load", generateOTP);
+    </script>
+  </body>
+</html>

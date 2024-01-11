@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generate UUID</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        font-family: "Arial", sans-serif;
+        background-color: #1E1C27;
+        color: white;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
+
+      #uuid-display {
+        font-size: 18px;
+        margin-top: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="uuid-display"></div>
+    <button onclick="generateAndDisplayUUID()">Generate UUID</button>
+
+    <script>
+      function generateUUID() {
+        let cryptoObj = window.crypto || window.msCrypto;
+        if (cryptoObj && cryptoObj.getRandomValues) {
+          let uuid = new Uint8Array(16);
+          cryptoObj.getRandomValues(uuid);
+          uuid[6] = (uuid[6] & 0x0f) | 0x40;
+          uuid[8] = (uuid[8] & 0x3f) | 0x80;
+          return uuidToFormattedString(uuid);
+        } else {
+          return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+            /[xy]/g,
+            function (c) {
+              let r = (Math.random() * 16) | 0,
+                v = c === "x" ? r : (r & 0x3) | 0x8;
+              return v.toString(16);
+            }
+          );
+        }
+      }
+
+      function uuidToFormattedString(uuid) {
+        return Array.from(uuid)
+          .map((byte) => {
+            return ("0" + byte.toString(16)).slice(-2);
+          })
+          .join("-");
+      }
+
+      function generateAndDisplayUUID() {
+        const uuidDisplay = document.getElementById("uuid-display");
+        const generatedUUID = generateUUID();
+        uuidDisplay.textContent = generatedUUID;
+      }
+    </script>
+  </body>
+</html>

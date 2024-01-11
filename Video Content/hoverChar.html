@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hover</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
+        body{
+            background-color: #1e1c27;
+            font-family: 'Outfit', sans-serif; 
+        }
+        span{
+            -webkit-text-stroke: .09px white;
+        }
+        span:hover{
+            color: white;
+        }
+        span:has(~span:hover){
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <span>V</span>
+    <span>I</span>
+    <span>R</span>
+    <span>A</span>
+    <span>L</span>&nbsp;
+    <span>C</span>
+    <span>O</span>
+    <span>D</span>
+    <span>E</span>
+    <span>R</span>
+</body>
+</html>

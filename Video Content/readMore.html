@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Read More Example</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 20px;
+        background-color: #1e1c27;
+        color: white;
+      }
+
+      .content {
+        max-height: 100px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .content::after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 30px;
+        /* background: linear-gradient(rgba(255, 255, 255, 0), white); */
+      }
+
+      #readMoreBtn {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content" id="content">
+      <p>
+        JavaScript (JS) is a lightweight interpreted (or just-in-time compiled)
+        programming language with first-class functions. While it is most
+        well-known as the scripting language for Web pages, many non-browser
+        environments also use it, such as Node.js, Apache CouchDB and Adobe
+        Acrobat. JavaScript is a prototype-based, multi-paradigm,
+        single-threaded, dynamic language, supporting object-oriented,
+        imperative, and declarative (e.g. functional programming) styles.
+        JavaScript's dynamic capabilities include runtime object construction,
+        variable parameter lists, function variables, dynamic script creation
+        (via eval), object introspection (via for...in and Object utilities),
+        and source-code recovery (JavaScript functions store their source text
+        and can be retrieved through toString()).
+      </p>
+    </div>
+
+    <button id="readMoreBtn" onclick="toggleReadMore()">Read More</button>
+
+    <script>
+      const contentDiv = document.getElementById("content");
+      const readMoreBtn = document.getElementById("readMoreBtn");
+
+      function toggleReadMore() {
+        if (contentDiv.style.maxHeight) {
+          contentDiv.style.maxHeight = null;
+          readMoreBtn.innerHTML = "Read More";
+        } else {
+          contentDiv.style.maxHeight = contentDiv.scrollHeight + "px";
+          readMoreBtn.innerHTML = "Read Less";
+        }
+      }
+      // Show "Read More" button if content overflows
+      if (contentDiv.scrollHeight > contentDiv.clientHeight) {
+        readMoreBtn.style.display = "block";
+      }
+    </script>
+  </body>
+</html>

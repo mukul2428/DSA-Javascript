@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Email Validation</title>
+  </head>
+  <body>
+    <div class="form-container">
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Enter an email" />
+      <div id="message"></div>
+      <button onclick="validateEmail()">Submit</button>
+    </div>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        
+        background-color: #1e1c27;
+        color: white;
+      }
+
+      .form-container {
+        text-align: center;
+      }
+
+      input {
+        padding: 10px;
+        margin: 10px;
+      }
+
+      .shake {
+        animation: shake 0.5s;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+          transform: translateX(-10px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translateX(10px);
+        }
+      }
+
+      #message {
+        color: red;
+      }
+    </style>
+    <script>
+      function validateEmail() {
+        var emailInput = document.getElementById("email");
+        var messageElement = document.getElementById("message");
+        var emailValue = emailInput.value;
+
+        // Simple email validation regex
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (emailRegex.test(emailValue)) {
+          // If email is valid, show a success message
+          messageElement.textContent = "Email is correct!";
+          messageElement.style.color = "green";
+        } else {
+          // If email is invalid, add the 'shake' class to the input
+          emailInput.classList.add("shake");
+          // Show an error message
+          messageElement.textContent = "Please enter a valid email.";
+          messageElement.style.color = "red";
+
+          // Remove the 'shake' class after the animation ends
+          setTimeout(function () {
+            emailInput.classList.remove("shake");
+          }, 500);
+        }
+      }
+    </script>
+  </body>
+</html>

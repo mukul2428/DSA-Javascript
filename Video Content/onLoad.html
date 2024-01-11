@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>On Load</title>
+    <style>
+      body {
+        background-color: #1e1c27;
+        color: white;
+      }
+      img {
+        width: 300px;
+        height: 200px;
+      }
+      img, p{
+        display: block;
+      }
+    </style>
+    <script>
+      function load() {
+        let coder = document.getElementById("image1");
+        coder.src = "coder.jpg";
+        coder.onload = ()=>{
+          
+        document.getElementById("about-image").innerHTML = "This is cool image by viral coder";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="load()">Load Image</button>
+    <img id="image1" src="" alt="image will load on button click" />
+    <h1 id="about-image"></h1>
+  </body>
+</html>

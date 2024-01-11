@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Hide the checkbox */
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        /* Style the label to look like a button */
+        label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Change the content of the label when the checkbox is checked */
+        input[type="checkbox"]:checked + label::before {
+            content: "Close";
+        }
+        /* Default content for the label */
+        label::before {
+            content: "Open";
+        }
+        /* Style the label when the checkbox is checked */
+        input[type="checkbox"]:checked + label {
+            background-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <!-- Checkbox and label -->
+    <input type="checkbox" id="toggleButton">
+    <label for="toggleButton"></label>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <title>Screenshot App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 40px;
+        background-color: #1e1c27;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      #screenshotElement {
+        background-color: #f0f0f0;
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="screenshotElement">
+      <!-- Your content goes here -->
+      <h3>Viral Coder</h3>
+      <h4>Magical Beans Coffee</h4>
+      <p>This is the element you want to capture.</p>
+    </div>
+    <button id="takeScreenshot">Take Screenshot</button>
+    <script>
+      document
+        .getElementById("takeScreenshot")
+        .addEventListener("click", () => {
+          const element = document.getElementById("screenshotElement");
+
+          html2canvas(element).then((canvas) => {
+            const link = document.createElement("a");
+            link.href = canvas.toDataURL();
+            link.download = "screenshot.png";
+            link.click();
+          });
+        });
+    </script>
+  </body>
+</html>

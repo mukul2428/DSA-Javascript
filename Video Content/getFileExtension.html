@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get File Extension</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #1e1c27;
+        color: white;
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .container {
+        font-family: "Poppins", sans-serif;
+        background-color: #ffffff;
+        width: 400px;
+        padding: 2em;
+        display: flex;
+        flex-direction: column;
+        border-radius: 0.5em;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type="file"] {
+        font-family: "Poppins", sans-serif;
+        margin-bottom: 1em;
+        font-size: 1.2em;
+        color: #474778;
+        padding: 0.5em;
+        border: 1px solid #ccc;
+        border-radius: 0.3em;
+        outline: none;
+        cursor: pointer;
+      }
+
+      #message {
+        text-align: center;
+        background-color: #e6ecff;
+        padding: 1.2em;
+        color: #4a77f8;
+        font-size: 1em;
+        border-radius: 0.3em;
+        margin-bottom: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <input type="file" id="my-file" />
+      <p id="message">Click on button to choose file</p>
+    </div>
+    <script>
+      //Initial Reference
+      let file = document.getElementById("my-file");
+      let message = document.getElementById("message");
+      //Call the function when there is input on the file input button
+      file.addEventListener("input", () => {
+        //If user selects a file
+        if (file.files.length) {
+          let fileExtension = file.files[0].name.split(".").pop();
+          message.innerHTML = fileExtension;
+        }
+        //If user clicks on cancel
+        else {
+          message.innerHTML = "Please select a file";
+        }
+      });
+    </script>
+  </body>
+</html>

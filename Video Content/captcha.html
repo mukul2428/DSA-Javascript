@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap");
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #1e1c27;
+        font-family: "Outfit", sans-serif;
+        color: white;
+      }
+
+      #captchaContainer {
+        text-align: center;
+      }
+
+      #captchaInput {
+        margin-top: 10px;
+        padding: 5px;
+        font-size: 16px;
+      }
+
+      #refreshButton {
+        cursor: pointer;
+        color: skyblue;
+        text-decoration: underline;
+        margin-top: 10px;
+      }
+
+      #result {
+        margin-top: 10px;
+      }
+    </style>
+    <title>CAPTCHA Generator</title>
+  </head>
+  <body>
+    <div id="captchaContainer">
+      <h2>Enter the CAPTCHA code below:</h2>
+      <div id="captchaOutput"></div>
+      <input type="text" id="captchaInput" placeholder="Enter CAPTCHA" />
+      <button id="checkButton" onclick="checkCaptcha()">Check</button>
+      <div id="result"></div>
+      <div id="refreshButton" onclick="generateCaptcha()">Refresh CAPTCHA</div>
+    </div>
+
+    <script>
+      function generateCaptcha() {
+        const characters =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        const captchaLength = 6;
+        let captchaCode = "";
+        for (let i = 0; i < captchaLength; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          captchaCode += characters.charAt(randomIndex);
+        }
+        document.getElementById("captchaOutput").textContent = captchaCode;
+        document.getElementById("captchaInput").value = "";
+        document.getElementById("result").textContent = "";
+      }
+
+      function checkCaptcha() {
+        // Get the entered code and the generated CAPTCHA code
+        const enteredCode = document.getElementById("captchaInput").value;
+        const generatedCode =
+          document.getElementById("captchaOutput").textContent;
+
+        // Check if the entered code is correct
+        if (enteredCode === generatedCode) {
+          document.getElementById("result").textContent =
+            "Correct! Code is valid.";
+        } else {
+          document.getElementById("result").textContent =
+            "Incorrect! Code is not valid. Please try again.";
+        }
+      }
+
+      // Initial generation of CAPTCHA code
+      generateCaptcha();
+    </script>
+  </body>
+</html>

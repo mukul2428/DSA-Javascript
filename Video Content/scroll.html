@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Scroll Indicator</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #1e1c27;
+        color: white;
+      }
+
+      .content {
+        height: 150vh; /* Adjust the height based on your content */
+        /* Add more styling for your content if needed */
+      }
+
+      .scroll-indicator {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background-color: #3498db; /* Change color as needed */
+        z-index: 1000;
+        transition: width 0.3s;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get the scrollIndicator element
+        const scrollIndicator = document.getElementById("scrollIndicator");
+        // Update the scroll indicator width based on scroll position
+        function updateScrollIndicator() {
+          const windowHeight = window.innerHeight;
+          const documentHeight = document.documentElement.scrollHeight;
+          const scrollableDistance = documentHeight - windowHeight;
+          const scrollY = window.scrollY || window.pageYOffset;
+          // Calculate scroll percentage
+          const scrollPercentage = (scrollY / scrollableDistance) * 100;
+          // Update the width of the scroll indicator
+          scrollIndicator.style.width = scrollPercentage + "%";
+        }
+        // Initial update
+        updateScrollIndicator();
+        // Update the scroll indicator on scroll
+        window.addEventListener("scroll", updateScrollIndicator);
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Your content goes here -->
+    <div class="content">
+      <h3>Viral Coder</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime, cumque.</p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
