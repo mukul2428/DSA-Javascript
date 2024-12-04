@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Download Button with Timer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        display: flex;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+        background-color: #1e1c27;
+      }
+      .download-button {
+        outline: none;
+        border: none;
+        color: #fff;
+        display: flex;
+        cursor: pointer;
+        padding: 16px 25px;
+        border-radius: 6px;
+        align-items: center;
+        white-space: nowrap;
+        background: #4a98f7;
+        transition: all 0.2s ease;
+      }
+      .download-button:hover {
+        background: #2382f6;
+      }
+      .download-button.timer {
+        color: #fff;
+        background: none;
+        transition: none;
+        font-size: 1.6rem;
+        pointer-events: none;
+      }
+      .download-button.timer b {
+        color: #4a98f7;
+        padding: 0 8px;
+      }
+      .download-button .icon {
+        font-size: 2rem;
+      }
+      .download-button .text {
+        font-size: 1.5rem;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="download-button" data-timer="5">
+      <span class="icon material-symbols-rounded">vertical_align_bottom</span>
+      <span class="text">Download Files</span>
+    </button>
+    <script>
+      const downloadButton = document.querySelector(".download-button");
+      const fileLink =
+        "https://drive.google.com/uc?export=download&id=1aYiaLn3YOjL-_o5QBCy7tU1epqA6gZoi";
+
+      const initializeTimer = () => {
+        if (downloadButton.classList.contains("disable-timer")) {
+          return (location.href = fileLink);
+        }
+        let timer = downloadButton.dataset.timer;
+        downloadButton.classList.add("timer");
+        downloadButton.innerHTML = `Your download will begin in <b>${timer}</b> seconds`;
+        const initCounter = setInterval(() => {
+          if (timer > 0) {
+            timer--;
+            return (downloadButton.innerHTML = `Your download will begin in <b>${timer}</b> seconds`);
+          }
+          clearInterval(initCounter);
+          location.href = fileLink;
+          downloadButton.innerText = "Your file is downloading...";
+          setTimeout(() => {
+            downloadButton.classList.replace("timer", "disable-timer");
+            downloadButton.innerHTML = `<span class="icon material-symbols-rounded">vertical_align_bottom</span>
+                                     <span class="text">Download Again</span>`;
+          }, 3000);
+        }, 1000);
+      };
+
+      downloadButton.addEventListener("click", initializeTimer);
+    </script>
+  </body>
+</html>

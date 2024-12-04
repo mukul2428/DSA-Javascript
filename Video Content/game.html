@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet Transformation</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #1e1c27;
+      }
+      .custom-container {
+        width: 31.25em;
+        position: absolute;
+        transform: translateX(-50%);
+        left: 50%;
+        margin: 1em auto;
+        box-shadow: 0 0 0 0.62em #ffffff, 0 1.25em 3.12em rgba(83, 66, 15, 0.5);
+        background-color: #ffffff;
+        border-radius: 0.5em;
+      }
+      .pet {
+        width: 95%;
+        height: 21.87em;
+        position: relative;
+        margin: 1em auto;
+        display: grid;
+        place-items: center;
+        background-color: #ffedb8;
+        overflow: hidden;
+      }
+      .pet img {
+        position: relative;
+        height: 18.75em;
+        bottom: -1.87em;
+      }
+      .transformation-items {
+        padding: 1em 0;
+        width: 31.25em;
+        position: relative;
+        background-color: #ffffff;
+      }
+      .transformation-items div {
+        position: relative;
+      }
+      [draggable] {
+        cursor: move;
+      }
+      img {
+        position: absolute;
+      }
+      .custom-eyes {
+        height: 3.75em;
+      }
+      .custom-mouths {
+        height: 3.12em;
+      }
+      .custom-glasses {
+        height: 5em;
+      }
+      .custom-hats {
+        height: 7em;
+      }
+      #eye-01,
+      #mouth-01 {
+        left: 0.93em;
+      }
+      #hat-01 {
+        left: 5em;
+      }
+      #glass-01 {
+        left: 4.37em;
+      }
+
+      #eye-02,
+      #mouth-02 {
+        left: 8.43em;
+      }
+      #hat-02 {
+        left: 12.5em;
+      }
+      #glass-02 {
+        left: 18.75em;
+      }
+
+      #eye-03,
+      #mouth-03 {
+        left: 15.93em;
+      }
+      #hat-03 {
+        left: 22.5em;
+      }
+
+      #eye-04,
+      #mouth-04 {
+        left: 23.43em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="custom-container">
+      <div class="pet" id="pet">
+        <img src="dog-01.png" id="pet-image" />
+      </div>
+      <div class="transformation-items">
+        <div class="custom-eyes">
+          <img
+            src="eyes-01.png"
+            class="drag eye"
+            draggable="true"
+            id="eye-01"
+          />
+          <img
+            src="eyes-02.png"
+            class="drag eye"
+            draggable="true"
+            id="eye-02"
+          />
+          <img
+            src="eyes-03.png"
+            class="drag eye"
+            draggable="true"
+            id="eye-03"
+          />
+          <img
+            src="eyes-04.png"
+            class="drag eye"
+            draggable="true"
+            id="eye-04"
+          />
+        </div>
+        <div class="custom-mouths">
+          <img
+            src="mouth-01.png"
+            class="drag mouth"
+            draggable="true"
+            id="mouth-01"
+          />
+          <img
+            src="mouth-02.png"
+            class="drag mouth"
+            draggable="true"
+            id="mouth-02"
+          />
+          <img
+            src="mouth-03.png"
+            class="drag mouth"
+            draggable="true"
+            id="mouth-03"
+          />
+          <img
+            src="mouth-04.png"
+            class="drag mouth"
+            draggable="true"
+            id="mouth-04"
+          />
+        </div>
+        <div class="custom-glasses">
+          <img
+            src="glasses-01.png"
+            class="drag glass"
+            draggable="true"
+            id="glass-01"
+          />
+          <img
+            src="glasses-02.png"
+            class="drag glass"
+            draggable="true"
+            id="glass-02"
+          />
+        </div>
+        <div class="custom-hats">
+          <img
+            src="hats-01.png"
+            class="drag hat"
+            draggable="true"
+            id="hat-01"
+          />
+          <img
+            src="hats-02.png"
+            class="drag hat"
+            draggable="true"
+            id="hat-02"
+          />
+          <img
+            src="hats-03.png"
+            class="drag hat"
+            draggable="true"
+            id="hat-03"
+          />
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentElement = "";
+      let initialX = 0,
+        initialY = 0;
+
+      const isTouchDevice = () => {
+        try {
+          document.createEvent("TouchEvent");
+          return true;
+        } catch (e) {
+          return false;
+        }
+      };
+
+      //Drag and drop functions
+      function dragStart(e) {
+        initialX = isTouchDevice() ? e.touches[0].clientX : e.clientX;
+        initialY = isTouchDevice() ? e.touches[0].clientY : e.clientY;
+        currentElement = e.target;
+      }
+
+      function dragOver(e) {
+        e.preventDefault();
+      }
+
+      const drop = (e) => {
+        e.preventDefault();
+        let newX = isTouchDevice() ? e.touches[0].clientX : e.clientX;
+        let newY = isTouchDevice() ? e.touches[0].clientY : e.clientY;
+        currentElement.style.top =
+          currentElement.offsetTop - (initialY - newY) + "px";
+        currentElement.style.left =
+          currentElement.offsetLeft - (initialX - newX) + "px";
+      };
+
+      window.onload = () => {
+        currentElement = "";
+        let body = document.body;
+        body.addEventListener("dragstart", dragStart, false);
+        body.addEventListener("dragover", dragOver, false);
+        body.addEventListener("drop", drop, false);
+        body.addEventListener("touchstart", dragStart, false);
+        body.addEventListener("touchmove", drop, false);
+      };
+    </script>
+  </body>
+</html>

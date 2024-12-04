@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inactivity Timer</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        background-color: #1e1c27;
+      }
+      .app-wrapper {
+        display: flex;
+        justify-content: right;
+      }
+      .timer-display {
+        display: inline-block;
+        font-size: 1.4em;
+        padding: 1em 2em;
+        margin: 1em 1em 0 0;
+        background-color: #3498db;
+        border-radius: 0.3em;
+      }
+      .timer-container {
+        width: 80vw;
+        max-width: 31.25em;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        padding: 2em 4em;
+        background-color: #ffffff;
+        border-radius: 0.5em;
+      }
+      #info-message {
+        width: 100%;
+        text-align: center;
+      }
+      .action-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+      .timer-container button {
+        border: 0.2em solid #2ecc71;
+        padding: 0.8em 1.2em;
+        border-radius: 0.3em;
+        outline: none;
+        margin-top: 2em;
+      }
+      #resume-timer {
+        background-color: #2ecc71;
+        color: #ffffff;
+      }
+      #exit-timer {
+        color: #2ecc71;
+        background-color: #ffffff;
+      }
+      .hide {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <div class="timer-display">00:00</div>
+    </div>
+    <div class="timer-container hide">
+      <p id="info-message"></p>
+      <div class="action-buttons">
+        <button id="resume-timer">Resume</button>
+        <button id="exit-timer">Exit</button>
+      </div>
+    </div>
+    <script>
+      let [seconds, minutes] = [0, 0];
+      let isInactive = false;
+      let timerElement = document.querySelector(".timer-display");
+      const resumeButton = document.getElementById("resume-timer");
+      const exitButton = document.getElementById("exit-timer");
+      const timerContainer = document.querySelector(".timer-container");
+      const infoMessage = document.getElementById("info-message");
+      let timerInterval = null;
+
+      const startTimer = () => {
+        if (timerInterval !== null) {
+          clearInterval(timerInterval);
+        }
+        timerInterval = setInterval(displayTimer, 1000);
+      };
+
+      resumeButton.addEventListener("click", () => {
+        isInactive = false;
+        initializeTimer();
+      });
+
+      window.onload = initializeTimer = () => {
+        if (isInactive) {
+          return false;
+        }
+        [seconds, minutes] = [0, 0];
+        timerElement.innerHTML = `00:00`;
+        if (timerElement.classList.contains("hide")) {
+          timerElement.classList.remove("hide");
+        }
+        timerContainer.classList.add("hide");
+        if (exitButton.classList.contains("hide")) {
+          exitButton.classList.remove("hide");
+          resumeButton.classList.remove("hide");
+        }
+        infoMessage.innerText = "";
+        startTimer();
+      };
+
+      window.onmousemove = initializeTimer;
+      window.onclick = initializeTimer;
+      window.ontouchstart = initializeTimer;
+      window.onkeydown = initializeTimer;
+
+      exitButton.addEventListener("click", () => {
+        clearInterval(timerInterval);
+        [seconds, minutes] = [0, 0];
+        timerElement.innerHTML = `00:00`;
+        exitButton.classList.add("hide");
+        resumeButton.classList.add("hide");
+        timerElement.classList.add("hide");
+        infoMessage.innerText = "Exited Successfully";
+      });
+
+      function displayTimer() {
+        seconds++;
+        let m = minutes < 10 ? "0" + minutes : minutes;
+        let s = seconds < 10 ? "0" + seconds : seconds;
+        timerElement.innerHTML = `${m}:${s}`;
+        if (seconds == 10) {
+          isInactive = true;
+          seconds = 0;
+          clearInterval(timerInterval);
+          infoMessage.innerText = "You have been inactive";
+          timerContainer.classList.remove("hide");
+        }
+      }
+    </script>
+  </body>
+</html>

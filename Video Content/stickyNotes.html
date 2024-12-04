@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap");
+      div {
+        margin: 20px auto;
+        width: 70%;
+        font-family: "Lato";
+        padding: 5px;
+        background: #666;
+        color: #fff;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      h4 {
+        font-weight: bold;
+        font-size: 2rem;
+      }
+      p {
+        font-family: "Reenie Beanie";
+        font-size: 2rem;
+      }
+      ul,
+      li {
+        list-style: none;
+      }
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      ul li a {
+        text-decoration: none;
+        color: #000;
+        background: #ffc;
+        display: block;
+        height: 10em;
+        width: 10em;
+        padding: 1em;
+        box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
+        transition: transform 0.15s linear;
+      }
+      ul li {
+        margin: 1em;
+      }
+      ul li:nth-child(odd) a {
+        transform: rotate(-4deg);
+        position: relative;
+        top: 5px;
+      }
+      ul li:nth-child(even) a {
+        transform: rotate(4deg);
+        position: relative;
+        top: 5px;
+      }
+      ul li:nth-child(3n) a {
+        transform: rotate(-3deg);
+        position: relative;
+        top: -5px;
+      }
+      ul li:nth-child(5n) a {
+        transform: rotate(5deg);
+        position: relative;
+        top: -10px;
+      }
+      ul li a:hover,
+      ul li a:focus {
+        box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
+        transform: scale(1.25);
+        position: relative;
+        z-index: 5;
+      }
+      ul li:nth-child(even) a {
+        position: relative;
+        top: 5px;
+        background: #cfc;
+      }
+      ul li:nth-child(3n) a {
+        position: relative;
+        top: -5px;
+        background: #ccf;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <ul>
+        <li>
+          <a href="#" contenteditable="true">
+            <h2>Title #1</h2>
+            <p>Text Content #1</p>
+          </a>
+        </li>
+        <li>
+          <a href="#" contenteditable="true">
+            <h2>Title #2</h2>
+            <p>Text Content #2</p>
+          </a>
+        </li>
+        <li>
+          <a href="#" contenteditable="true">
+            <h2>Title #3</h2>
+            <p>Text Content #3</p>
+          </a>
+        </li>
+        <li>
+          <a href="#" contenteditable="true">
+            <h2>Title #4</h2>
+            <p>Text Content #4</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <script>
+      $(document).ready(function () {
+        let allNotes = $("li a");
+        allNotes.on("keyup", function () {
+          let noteTitle = $(this).find("h2").text();
+          let noteContent = $(this).find("p").text();
+          let itemKey = "list_" + $(this).parent().index();
+          let data = { title: noteTitle, content: noteContent };
+          window.localStorage.setItem(itemKey, JSON.stringify(data));
+        });
+        allNotes.each(function (index) {
+          let data = JSON.parse(window.localStorage.getItem("list_" + index));
+          if (data !== null) {
+            let noteTitle = data.title;
+            let noteContent = data.content;
+            $(this).find("h2").text(noteTitle);
+            $(this).find("p").text(noteContent);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

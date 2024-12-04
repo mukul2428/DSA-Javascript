@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Render</title>
+    <style>
+        body {
+            margin: 13%;
+            background-color: #1e1c27;
+        }
+    </style>
+  </head>
+  <body>
+    <img
+      style="width: 300px; height: 200px"
+      src=""
+      onerror="imageFailed(event)"
+      alt=""
+    />
+    <script>
+      function imageFailed(e) {
+        e.target.src = "card-2-img.jpg";
+      }
+    </script>
+  </body>
+</html>

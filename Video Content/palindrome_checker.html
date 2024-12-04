@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Palindrome Checker</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *:before,
+      *:after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Rubik", sans-serif;
+        background-color: #1e1c27;
+      }
+      .check-container {
+        width: 35%;
+        min-width: 450px;
+        background-color: #ffffff;
+        padding: 50px 30px;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        border-radius: 8px;
+        box-shadow: 0 20px 25px rgba(0, 0, 0, 0.18);
+      }
+      .check-container * {
+        outline: none;
+        font-size: 16px;
+      }
+      .input-field {
+        width: 60%;
+        border: none;
+        border-bottom: 2px solid #d5d5d5;
+        padding: 10px 5px;
+        font-weight: 400;
+      }
+      .input-field:focus {
+        border-bottom: 2px solid #b156fe;
+      }
+      .check-button {
+        width: 25%;
+        float: right;
+        padding: 10px 20px;
+        background-color: #b156fe;
+        border: none;
+        border-radius: 3px;
+        color: #ffffff;
+        font-weight: 400;
+      }
+      .result-message {
+        margin-top: 30px;
+        text-align: center;
+        color: #b156fe;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="check-container">
+      <input
+        type="text"
+        id="input-text"
+        placeholder="Enter a word to check"
+        class="input-field"
+      />
+      <button id="check-button" class="check-button">Check</button>
+      <p id="result" class="result-message"></p>
+    </div>
+    <script>
+      document
+        .getElementById("check-button")
+        .addEventListener("click", function () {
+          let inputText = document.getElementById("input-text").value;
+          checkPalindrome(inputText);
+        });
+
+      function checkPalindrome(inputText) {
+        let cleanedText = inputText.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+        let length = cleanedText.length;
+        let halfLength = Math.floor(length / 2);
+        let resultElement = document.getElementById("result");
+        let i;
+        for (i = 0; i < halfLength; i++) {
+          if (cleanedText[i] !== cleanedText[length - 1 - i]) {
+            resultElement.textContent = "Nope! Not a palindrome";
+            return;
+          }
+          resultElement.textContent = "Yes! It's a palindrome";
+        }
+      }
+    </script>
+  </body>
+</html>

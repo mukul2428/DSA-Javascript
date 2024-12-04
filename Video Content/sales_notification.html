@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fake Sales Notification</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "Rubik", sans-serif;
+      }
+
+      body {
+        background-color: #1e1c27;
+      }
+
+      #alert-btn {
+        cursor: pointer;
+      }
+
+      #custom-notification {
+        width: 350px;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        display: none;
+        align-items: flex-start;
+        gap: 0.5em;
+        background-color: white;
+      }
+
+      .custom-product-info {
+        display: flex;
+      }
+
+      .custom-product-info img {
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+      }
+
+      .custom-message {
+        font-size: 16px;
+      }
+
+      .custom-time {
+        font-size: 14px;
+        margin-top: 16px;
+        color: #a0a0a0;
+      }
+
+      #custom-close-btn {
+        background-color: transparent;
+        color: red;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="custom-notification">
+      <div class="custom-product-info">
+        <img src="" alt="Product Image" id="custom-product-image" />
+        <div id="custom-product-text"></div>
+      </div>
+      <button id="custom-close-btn">Close</button>
+    </div>
+    <script>
+      const customNotification = document.getElementById("custom-notification");
+      const closeNotificationBtn = document.getElementById("custom-close-btn");
+      const customProductText = document.getElementById("custom-product-text");
+      const customProductImage = document.getElementById(
+        "custom-product-image"
+      );
+      const names = ["John", "Alice", "Bob", "Emma", "Betty"];
+      const products = [
+        {
+          name: "Nike Red Shoes",
+          image: "card-1-img.jpg",
+        },
+        {
+          name: "Chanel Noir Perfume",
+          image: "card-2-img.jpg",
+        },
+        {
+          name: "Awesome Black Shirt",
+          image: "card-3-img.jpg",
+        },
+        {
+          name: "Ray-Ban Sunglasses",
+          image: "sun.png",
+        },
+        {
+          name: "Black Apple Watch",
+          image: "tiger.png",
+        },
+      ];
+
+      function getRandomItemFromArray(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function getRandomTime() {
+        return Math.floor(Math.random() * 59) + 1;
+      }
+
+      const getRandomDisplayTime = () => Math.random() * (8 - 3) + 3;
+      const showCustomNotification = () => {
+        const randomName = getRandomItemFromArray(names);
+        const randomProduct = getRandomItemFromArray(products);
+        const { name, image } = randomProduct;
+        customProductImage.src = image;
+        customProductText.innerHTML = `<p class="custom-message">${randomName} purchased ${name}</p> <p class="custom-time">${getRandomTime()} mins ago</p>`;
+        customNotification.style.display = "flex";
+      };
+
+      closeNotificationBtn.addEventListener("click", () => {
+        customNotification.style.display = "none";
+        setTimeout(
+          showCustomNotification,
+          Math.floor(getRandomDisplayTime()) * 500
+        );
+      });
+
+      setTimeout(
+        showCustomNotification,
+        Math.floor(getRandomDisplayTime()) * 500
+      );
+    </script>
+  </body>
+</html>

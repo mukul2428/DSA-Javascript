@@ -1,0 +1,36 @@
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+  }
+  .pass {
+	  display: flex;
+	  font-size: var(--font-size);
+	  flex-direction: column;
+	  gap: 0.25rem;
+	  font-family: monospace;
+	  max-width: calc(100% - 2rem);
+  }
+  .pass label {
+	  font-size: 0.5em;
+	  font-weight: 200;
+	  color: color-mix(in lch, canvasText 60%, transparent);
+  }
+  
+  .pass__header {
+	  position: relative;
+	  display: flex;
+	  gap: 0.5rem;
+	  align-items: center;
+  }
+  
+  [aria-hidden=true] {
+	  display: block;
+	  padding: 0.5em 0;
+  }

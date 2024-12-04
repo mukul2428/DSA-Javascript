@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Test</title>
+    <style>
+      body {
+        text-align: center;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 300px;
+        margin: 20px auto;
+        width: 80%;
+        background-color: black;
+        overflow: hidden;
+        position: relative;
+      }
+      .bar {
+        width: 15%;
+        height: 50px;
+        margin: 0 5px;
+        background-color: purple;
+        transition: height 0.5s;
+      }
+      #bar1 {
+        background-color: purple;
+      }
+      #bar2 {
+        background-color: pink;
+      }
+      #bar3 {
+        background-color: orange;
+      }
+      #bar4 {
+        background-color: yellow;
+      }
+      #bar5 {
+        background-color: red;
+      }
+      .controls {
+        margin-top: 20px;
+      }
+      .controls button {
+        padding: 10px 20px;
+        margin: 0 10px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: white;
+        border-radius: 5px;
+      }
+      #start {
+        background-color: green;
+      }
+      #reset {
+        background-color: purple;
+      }
+      #stop {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="bar1" class="bar"></div>
+      <div id="bar2" class="bar"></div>
+      <div id="bar3" class="bar"></div>
+      <div id="bar4" class="bar"></div>
+      <div id="bar5" class="bar"></div>
+    </div>
+    <div class="controls">
+      <button id="start" onclick="startAnimation()">Start</button>
+      <button id="stop" onclick="stopAnimation()">Stop</button>
+      <button id="reset" onclick="resetBars()">Reset</button>
+    </div>
+
+    <script>
+      const bars = document.querySelectorAll(".bar");
+      let animationInterval;
+
+      const getRandomHeight = () => {
+        return Math.floor(Math.random() * 230) + 50;
+      };
+
+      const startAnimation = () => {
+        if (animationInterval) return;
+        animationInterval = setInterval(() => {
+          bars.forEach((bar) => {
+            bar.style.height = getRandomHeight() + "px";
+          });
+        }, 500);
+      };
+
+      const stopAnimation = () => {
+        clearInterval(animationInterval);
+        animationInterval = null;
+      };
+
+      const resetBars = () => {
+        stopAnimation();
+        bars.forEach((bar) => {
+          bar.style.height = "300px";
+        });
+      };
+    </script>
+  </body>
+</html>

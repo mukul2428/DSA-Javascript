@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Unique Rock Paper Scissors Game</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *:before,
+      *:after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        background: #1e1c27;
+      }
+      .game-container {
+        width: 45%;
+        min-width: 500px;
+        background-color: #ffffff;
+        padding: 40px 30px;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        border-radius: 10px;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+      }
+      .game-scores {
+        margin-bottom: 50px;
+        text-align: right;
+      }
+      .weapons-container {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: space-around;
+      }
+      .weapons-container button {
+        background-color: #ffd51b;
+        color: #000000;
+        border: none;
+        font-size: 50px;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        outline: none;
+        cursor: pointer;
+      }
+      .game-details {
+        margin-top: 30px;
+        text-align: center;
+      }
+      .game-scores,
+      .game-details {
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+        font-size: 15px;
+      }
+      #game-result {
+        width: 180px;
+        padding: 10px 0;
+        margin: 30px auto;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      #user_choice,
+      #computer_choice {
+        font-weight: 400;
+        margin-bottom: 10px;
+      }
+      span {
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="game-scores">
+        <p>
+          Computer :
+          <span id="computer_points">0</span>
+        </p>
+        <p>
+          You :
+          <span id="user_points">0</span>
+        </p>
+      </div>
+      <div class="weapons-container">
+        <button onclick="evaluateChoice('rock')">
+          <i class="far fa-hand-rock"></i>
+        </button>
+        <button onclick="evaluateChoice('paper')">
+          <i class="far fa-hand-paper"></i>
+        </button>
+        <button onclick="evaluateChoice('scissor')">
+          <i class="far fa-hand-scissors"></i>
+        </button>
+      </div>
+      <div class="game-details">
+        <p id="user_choice"></p>
+        <p id="comp_choice"></p>
+        <p id="game-result"></p>
+      </div>
+    </div>
+    <script>
+      let [computer_points, user_points] = [0, 0];
+      let result_reference = document.getElementById("game-result");
+      let choices_map = {
+        rock: {
+          rock: "draw",
+          scissor: "win",
+          paper: "lose",
+        },
+        scissor: {
+          rock: "lose",
+          scissor: "draw",
+          paper: "win",
+        },
+        paper: {
+          rock: "win",
+          scissor: "lose",
+          paper: "draw",
+        },
+      };
+
+      function evaluateChoice(selection) {
+        var choices_list = ["rock", "paper", "scissor"];
+        var random_index = Math.floor(Math.random() * 3);
+        document.getElementById(
+          "comp_choice"
+        ).innerHTML = ` Computer selects <span> ${choices_list[
+          random_index
+        ].toUpperCase()} </span>`;
+        document.getElementById(
+          "user_choice"
+        ).innerHTML = ` You select <span> ${selection.toUpperCase()} </span>`;
+
+        let computer_selection = choices_list[random_index];
+
+        switch (choices_map[selection][computer_selection]) {
+          case "win":
+            result_reference.style.cssText =
+              "background-color: #cefdce; color: #689f38";
+            result_reference.innerHTML = "YOU WIN";
+            user_points++;
+            break;
+          case "lose":
+            result_reference.style.cssText =
+              "background-color: #ffdde0; color: #d32f2f";
+            result_reference.innerHTML = "YOU LOSE";
+            computer_points++;
+            break;
+          default:
+            result_reference.style.cssText =
+              "background-color: #e5e5e5; color: #808080";
+            result_reference.innerHTML = "DRAW";
+            break;
+        }
+
+        document.getElementById("computer_points").innerHTML = computer_points;
+        document.getElementById("user_points").innerHTML = user_points;
+      }
+    </script>
+  </body>
+</html>

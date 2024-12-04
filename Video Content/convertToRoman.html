@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roman Numeral Converter</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Rubik", sans-serif;
+      }
+      body {
+        background-color: #1e1c27;
+      }
+      .conversion-container {
+        background-color: #ffffff;
+        width: min(90%, 450px);
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        padding: 3em 2em;
+        border-radius: 0.8em;
+      }
+      .input-section {
+        display: grid;
+        grid-template-columns: 9fr 3fr;
+        gap: 1em;
+      }
+      .input-field {
+        padding: 1em 0.5em;
+        color: #262e45;
+        border: 2px solid #e3e4ef;
+      }
+      .input-field:focus {
+        border-color: #4470f3;
+      }
+      .convert-button {
+        border: none;
+        background-color: #4470f3;
+        color: #ffffff;
+      }
+      .input-field,
+      .convert-button {
+        font-size: 1em;
+        outline: none;
+        border-radius: 0.5em;
+      }
+      #error-message {
+        background-color: #fc4747;
+        text-align: center;
+        color: #ffffff;
+        margin-top: 0.5em;
+      }
+      #converted-result {
+        font-size: 1.2em;
+        text-align: center;
+        font-weight: 600;
+        color: #262e45;
+        margin-top: 2em;
+      }
+      #converted-result span {
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="conversion-container">
+      <div class="input-section">
+        <input
+          type="number"
+          id="input-number"
+          placeholder="Enter Number Here..."
+          class="input-field"
+        />
+        <button type="submit" id="convert-button" class="convert-button">
+          Convert
+        </button>
+      </div>
+      <p id="converted-result">
+        <span>Enter The Number & Hit Convert</span>
+      </p>
+      <p id="error-message"></p>
+    </div>
+    <script>
+      let inputNumber = document.getElementById("input-number");
+      let convertButton = document.getElementById("convert-button");
+      let errorMessage = document.getElementById("error-message");
+      let convertedResult = document.getElementById("converted-result");
+
+      const romanNumeralMap = {
+        M: 1000,
+        CM: 900,
+        D: 500,
+        CD: 400,
+        C: 100,
+        XC: 90,
+        L: 50,
+        XL: 40,
+        XXX: 30,
+        XX: 20,
+        X: 10,
+        IX: 9,
+        V: 5,
+        IV: 4,
+        I: 1,
+      };
+
+      convertButton.addEventListener("click", () => {
+        convertToRoman(inputNumber.value);
+        inputNumber.value = "";
+      });
+
+      function convertToRoman(num) {
+        let number = parseInt(num);
+        if (num.trim().length == 0) {
+          errorMessage.innerHTML = "Invalid Input";
+          convertedResult.innerHTML = "";
+          return false;
+        }
+        if (number > 4999 || number < 1) {
+          errorMessage.innerHTML = "Input Out Of Range";
+          convertedResult.innerHTML = "";
+          return false;
+        }
+        errorMessage.innerHTML = "";
+        convertedResult.innerHTML = "";
+        let result = "";
+        let romanNumerals = Object.keys(romanNumeralMap);
+        romanNumerals.forEach((key) => {
+          while (romanNumeralMap[key] <= number) {
+            number -= romanNumeralMap[key];
+            result += key;
+          }
+        });
+        convertedResult.innerHTML = result;
+      }
+    </script>
+  </body>
+</html>

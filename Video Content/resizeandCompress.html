@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Image Size Adjuster JavaScript</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #1e1c27;
+      }
+      .adjuster-wrapper {
+        width: 450px;
+        height: 288px;
+        padding: 30px;
+        background: #fff;
+        border-radius: 9px;
+        transition: height 0.2s ease;
+      }
+      .adjuster-wrapper.active {
+        height: 537px;
+      }
+      .adjuster-wrapper .file-box {
+        height: 225px;
+        display: flex;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        border-radius: 5px;
+        border: 2px dashed #afafaf;
+      }
+      .adjuster-wrapper.active .file-box {
+        border: none;
+      }
+      .file-box p {
+        font-size: 1.06rem;
+        margin-top: 20px;
+      }
+      .adjuster-wrapper.active .file-box p {
+        display: none;
+      }
+      .adjuster-wrapper.active .file-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      .adjuster-wrapper .adjust-content {
+        opacity: 0;
+        margin-top: 28px;
+        pointer-events: none;
+      }
+      .adjuster-wrapper.active .adjust-content {
+        opacity: 1;
+        pointer-events: auto;
+        transition: opacity 0.5s 0.05s ease;
+      }
+      .adjust-content .row {
+        display: flex;
+        justify-content: space-between;
+      }
+      .adjust-content .row .column {
+        width: calc(100% / 2 - 15px);
+      }
+      .row .column label {
+        font-size: 1.06rem;
+      }
+      .sizes .column input {
+        width: 100%;
+        height: 49px;
+        outline: none;
+        margin-top: 7px;
+        padding: 0 15px;
+        font-size: 1.06rem;
+        border-radius: 4px;
+        border: 1px solid #aaa;
+      }
+      .sizes .column input:focus {
+        padding: 0 14px;
+        border: 2px solid #927dfc;
+      }
+      .adjust-content .checkboxes {
+        margin-top: 20px;
+      }
+      .checkboxes .column {
+        display: flex;
+        align-items: center;
+      }
+      .checkboxes .column input {
+        width: 17px;
+        height: 17px;
+        margin-right: 9px;
+        accent-color: #927dfc;
+      }
+      .adjust-content .download-button {
+        width: 100%;
+        color: #fff;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.06rem;
+        border-radius: 5px;
+        padding: 15px 0;
+        margin: 30px 0 10px;
+        background: #927dfc;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="adjuster-wrapper">
+      <div class="file-box">
+        <input type="file" accept="image/*" hidden />
+        <img
+          src="https://www.codingnepalweb.com/demos/resize-and-compress-image-javascript/upload-icon.svg"
+          alt=""
+        />
+        <p>Select Image to Adjust</p>
+      </div>
+      <div class="adjust-content">
+        <div class="row sizes">
+          <div class="column width">
+            <label>Width</label>
+            <input type="number" />
+          </div>
+          <div class="column height">
+            <label>Height</label>
+            <input type="number" />
+          </div>
+        </div>
+        <div class="row checkboxes">
+          <div class="column ratio">
+            <input type="checkbox" id="ratio" checked />
+            <label for="ratio">Lock aspect ratio</label>
+          </div>
+          <div class="column quality">
+            <input type="checkbox" id="quality" />
+            <label for="quality">Reduce quality</label>
+          </div>
+        </div>
+        <button class="download-button">Download Image</button>
+      </div>
+    </div>
+    <script>
+      const fileBox = document.querySelector(".file-box"),
+        previewImg = fileBox.querySelector("img"),
+        fileInput = fileBox.querySelector("input"),
+        widthInput = document.querySelector(".width input"),
+        heightInput = document.querySelector(".height input"),
+        ratioInput = document.querySelector(".ratio input"),
+        qualityInput = document.querySelector(".quality input"),
+        downloadButton = document.querySelector(".download-button");
+
+      let originalImageRatio;
+
+      const loadFile = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        previewImg.src = URL.createObjectURL(file);
+        previewImg.addEventListener("load", () => {
+          widthInput.value = previewImg.naturalWidth;
+          heightInput.value = previewImg.naturalHeight;
+          originalImageRatio = previewImg.naturalWidth / previewImg.naturalHeight;
+          document.querySelector(".adjuster-wrapper").classList.add("active");
+        });
+      };
+
+      widthInput.addEventListener("keyup", () => {
+        const height = ratioInput.checked
+          ? widthInput.value / originalImageRatio
+          : heightInput.value;
+        heightInput.value = Math.floor(height);
+      });
+
+      heightInput.addEventListener("keyup", () => {
+        const width = ratioInput.checked
+          ? heightInput.value * originalImageRatio
+          : widthInput.value;
+        widthInput.value = Math.floor(width);
+      });
+
+      const resizeAndDownload = () => {
+        const canvas = document.createElement("canvas");
+        const a = document.createElement("a");
+        const ctx = canvas.getContext("2d");
+        const imgQuality = qualityInput.checked ? 0.5 : 1.0;
+        canvas.width = widthInput.value;
+        canvas.height = heightInput.value;
+        ctx.drawImage(previewImg, 0, 0, canvas.width, canvas.height);
+        a.href = canvas.toDataURL("image/jpeg", imgQuality);
+        a.download = new Date().getTime();
+        a.click();
+      };
+      downloadButton.addEventListener("click", resizeAndDownload);
+      fileInput.addEventListener("change", loadFile);
+      fileBox.addEventListener("click", () => fileInput.click());
+    </script>
+  </body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Truncation Tool</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Rubik", sans-serif;
+      }
+      body {
+        background-color: #1e1c27;
+      }
+      .custom-container {
+        background-color: #ffffff;
+        border-radius: 0.8em;
+        width: 95%;
+        max-width: 43.75em;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        padding: 5em 2em;
+      }
+      .custom-txt-areas {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em;
+      }
+      .custom-label {
+        color: #02001f;
+        font-weight: 600;
+      }
+      .custom-txt-areas div {
+        display: flex;
+        flex-direction: column;
+      }
+      .custom-textarea {
+        resize: none;
+        border: 1px solid #02001f;
+        border-radius: 0.3em;
+        margin: 1em 0 2em 0;
+        padding: 0.8em;
+      }
+      .custom-len {
+        width: 5em;
+        padding: 0.8em 1em;
+        border: 1px solid #02001f;
+        border-radius: 0.5em;
+      }
+      .custom-truncate,
+      .custom-copy {
+        padding: 0.8em 1em;
+        border-radius: 0.5em;
+        border: none;
+        background-color: #1dd2a2;
+        cursor: pointer;
+      }
+      @media screen and (max-width: 600px) {
+        .custom-txt-areas {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="custom-container">
+      <div class="custom-txt-areas">
+        <div>
+          <label for="custom-input-text" class="custom-label"
+            >Input Text:</label
+          >
+          <textarea
+            id="custom-input-text"
+            rows="5"
+            placeholder="Enter Text Here..."
+            class="custom-textarea"
+          ></textarea>
+        </div>
+        <div>
+          <label for="custom-output-text" class="custom-label"
+            >Output Text:</label
+          >
+          <textarea
+            id="custom-output-text"
+            rows="5"
+            placeholder="Output text will be displayed here..."
+            class="custom-textarea"
+          ></textarea>
+        </div>
+      </div>
+      <input type="number" value="10" id="custom-len" class="custom-len" />
+      <button id="custom-truncate" class="custom-truncate">Truncate</button>
+      <button id="custom-copy" class="custom-copy">Copy</button>
+    </div>
+    <script>
+      let customInputText = document.getElementById("custom-input-text");
+      let customOutputText = document.getElementById("custom-output-text");
+      let customTruncateBtn = document.getElementById("custom-truncate");
+      let customCopyBtn = document.getElementById("custom-copy");
+
+      customTruncateBtn.addEventListener("click", () => {
+        let customLen = parseInt(document.getElementById("custom-len").value);
+        if (customLen) {
+          if (customLen > 0 && customInputText.value.length > customLen) {
+            customOutputText.value = customInputText.value.slice(0, customLen);
+          }
+          else {
+            customOutputText.value = customInputText.value;
+          }
+        }
+        else {
+          customOutputText.value = "";
+          alert("Please fill the length input");
+        }
+      });
+
+      //Copy Button
+      customCopyBtn.addEventListener("click", () => {
+        navigator.clipboard.writeText(`${customOutputText.value}`);
+      });
+    </script>
+  </body>
+</html>
