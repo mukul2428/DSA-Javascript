@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Text Slider</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" />
+    <style>
+        body {
+            font-family: "Ubuntu", sans-serif;
+            margin: 0 auto;
+            background-color: #191a1e;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .text-slider {
+            width: 600px;
+            display: flex;
+            gap: 15px;
+            font-size: 30px;
+        }
+
+        .dynamic-text {
+            display: flex;
+            color: #0077ee;
+            font-weight: 700;
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        .text-animation {
+            animation: fade 0.3s forwards;
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+
+        .holder-fade {
+            animation: holderFade 4s;
+        }
+
+        @keyframes holderFade {
+            0% {
+                opacity: 1;
+            }
+
+            95% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="text-slider" id="dynamicSlider">
+        <div class="static-text">We excel at</div>
+        <div class="dynamic-text" id="dynamicText"></div>
+    </div>
+
+    <script>
+        var sliderIndex = 0;
+        var sliderItems = [
+            "Web Development",
+            "WordPress Development",
+            "App Development",
+            "Plugin Development",
+            "CRM Integrations",
+        ];
+        var textSlider = document.querySelector("#dynamicSlider");
+        var dynamicTextElement = document.querySelector("#dynamicText");
+
+        function slideText() {
+            if (sliderIndex >= sliderItems.length) {
+                sliderIndex = 0;
+            }
+
+            dynamicTextElement.innerHTML = "";
+            dynamicTextElement.classList.remove("holder-fade");
+            void dynamicTextElement.offsetWidth;
+            dynamicTextElement.classList.add("holder-fade");
+
+            for (i = 0; i < sliderItems[sliderIndex].length; i++) {
+                let letterDiv = document.createElement("div");
+                letterDiv.innerHTML = sliderItems[sliderIndex][i];
+                if (letterDiv.innerHTML == " ") {
+                    letterDiv.innerHTML = "&nbsp;";
+                }
+                letterDiv.classList.add("hidden");
+                letterDiv.classList.add("text-animation");
+                letterDiv.style.animationDelay = i / 10 + "s";
+                dynamicTextElement.appendChild(letterDiv);
+            }
+
+            sliderIndex++;
+        }
+
+        slideText();
+        setInterval(slideText, 4000);
+    </script>
+</body>
+
+</html>

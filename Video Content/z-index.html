@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Unique Image Hover Animation</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1e1c27;
+      }
+      .wrapper {
+        height: 500px;
+        display: flex;
+        min-width: 400px;
+        align-items: flex-end;
+        justify-content: center;
+        margin-top: -55px;
+      }
+      .icon-frame {
+        position: relative;
+        height: 70px;
+        width: 70px;
+        margin: 0 5px;
+        cursor: pointer;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+        border-radius: 50%;
+        background: #fff;
+      }
+      .icon-frame .icon-pic img {
+        position: absolute;
+        height: 95%;
+        width: 95%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #0396ff;
+      }
+      .icon-frame::before {
+        content: "";
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        left: 50%;
+        top: -50px;
+        transform: translateX(-50%);
+      }
+      .icon-frame .hover-pic {
+        position: absolute;
+        height: 350px;
+        width: 300px;
+        bottom: 100px;
+        left: 50%;
+        z-index: 0;
+        transform: translateX(-50%);
+        border-radius: 25px;
+        pointer-events: none;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        transition: transform 0.5s ease, z-index 0s, left 0.5s ease;
+        transition-delay: 0s, 0.5s, 0.5s;
+      }
+      .icon-frame:hover .hover-pic {
+        left: -200px;
+        z-index: 12;
+        transform: translateX(80px);
+        transition: left 0.5s ease, z-index 0s, transform 0.5s ease;
+        transition-delay: 0s, 0.5s, 0.5s;
+      }
+      .hover-pic img {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border: 3px solid #fff;
+        border-radius: 25px;
+      }
+      .hover-pic .content {
+        position: absolute;
+        width: 100%;
+        bottom: -10px;
+        padding: 0 10px;
+      }
+      .content::before {
+        content: "";
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        background: #fff;
+        left: 50%;
+        bottom: -7px;
+        transform: rotate(45deg) translateX(-50%);
+        z-index: -1;
+      }
+      .content .details {
+        position: relative;
+        background: #fff;
+        padding: 10px;
+        border-radius: 12px;
+        text-align: center;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10px);
+      }
+      .icon-frame:hover .details {
+        transition: all 0.5s ease;
+        transition-delay: 0.9s;
+        opacity: 1;
+        transform: translateY(4px);
+        pointer-events: auto;
+      }
+      .details::before {
+        content: "";
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        background: #fff;
+        left: 50%;
+        bottom: -15px;
+        transform: rotate(45deg) translateX(-50%);
+        z-index: -1;
+      }
+      .content .details .name {
+        font-size: 20px;
+        font-weight: 500;
+      }
+      .content .details .job {
+        font-size: 17px;
+        color: #0396ff;
+        margin: -3px 0 5px 0;
+      }
+      .content .details a:hover {
+        color: #0396ff;
+      }
+      .wrapper .last .hover-pic {
+        transition: none;
+      }
+      .wrapper .last:hover .hover-pic {
+        transition: 0;
+      }
+      .last:hover .details {
+        transition-delay: 0s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="icon-frame">
+        <div class="icon-pic">
+          <img src="img1.jpg" alt="" />
+        </div>
+        <div class="hover-pic one">
+          <div class="img">
+            <img src="img1.jpg" alt="" />
+          </div>
+          <div class="content">
+            <div class="details">
+              <div class="name">David Marloo</div>
+              <div class="job">Designer || Developer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="icon-frame">
+        <div class="icon-pic">
+          <img src="img2.jpg" alt="" />
+        </div>
+        <div class="hover-pic one">
+          <div class="img">
+            <img src="img2.jpg" alt="" />
+          </div>
+          <div class="content">
+            <div class="details">
+              <div class="name">Lilly Carls</div>
+              <div class="job">Blogger || Designer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="icon-frame">
+        <div class="icon-pic">
+          <img src="img3.jpg" alt="" />
+        </div>
+        <div class="hover-pic one">
+          <div class="img">
+            <img src="img3.jpg" alt="" />
+          </div>
+          <div class="content">
+            <div class="details">
+              <div class="name">Stephen Bald</div>
+              <div class="job">Designer || Developer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="icon-frame">
+        <div class="icon-pic">
+          <img src="img4.jpg" alt="" />
+        </div>
+        <div class="hover-pic one">
+          <div class="img">
+            <img src="img4.jpg" alt="" />
+          </div>
+          <div class="content">
+            <div class="details">
+              <div class="name">Mike Tyson</div>
+              <div class="job">Photographer || Youtuber</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="icon-frame">
+        <div class="icon-pic">
+          <img src="img5.jpg" alt="" />
+        </div>
+        <div class="hover-pic one">
+          <div class="img">
+            <img src="img5.jpg" alt="" />
+          </div>
+          <div class="content">
+            <div class="details">
+              <div class="name">Emma Oliva</div>
+              <div class="job">Developer || Designer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="icon-frame last">
+        <div class="icon-pic">
+          <img src="img6.jpg" alt="" />
+        </div>
+        <div class="hover-pic one">
+          <div class="img">
+            <img src="img6.jpg" alt="" />
+          </div>
+          <div class="content">
+            <div class="details">
+              <div class="name">David Marloo</div>
+              <div class="job">Blogger || Youtuber</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const frames = document.querySelectorAll(".icon-frame");
+      function moveImage(e) {
+        const images = document.querySelectorAll(".hover-pic");
+        e.target.matches(".next") && frames[0].append(images[0]);
+        e.target.matches(".prev") &&
+          frames[frames.length - 1].prepend(images[images.length - 1]);
+      }
+      document.addEventListener("click", moveImage, false);
+    </script>
+  </body>
+</html>

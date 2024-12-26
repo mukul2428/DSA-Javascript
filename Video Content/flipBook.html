@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        min-height: 100vh;
+        margin: 0;
+        max-height: 100vh;
+        overflow: hidden;
+        background-color: #264653;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      .aligned-center {
+        margin: auto;
+        width: max-content;
+      }
+
+      .custom-flipbook {
+        margin: 3em auto;
+        width: 400px;
+        height: 300px;
+        position: relative;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+      }
+
+      .custom-flipbook .custom-leaf {
+        position: absolute;
+        transform-style: preserve-3d;
+        height: 100%;
+        width: 50%;
+        background-color: #fff;
+        left: 50%;
+        transition: transform 1s;
+        transform: rotate3d(0, 1, 0, 0deg);
+        transform-origin: left 0px;
+      }
+
+      .custom-flipbook .custom-leaf .custom-page {
+        transform-style: preserve-3d;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+      }
+
+      .custom-flipbook .custom-leaf .custom-page.front {
+        transform: rotate3d(0, 1, 0, 0deg) translate3d(0, 0, 0.1px);
+        &:not(.external) {
+          box-shadow: inset 5px 0px 5px -5px #0005;
+        }
+      }
+
+      .custom-flipbook .custom-leaf .custom-page.back {
+        transform: rotate3d(0, 1, 0, 180deg) translate3d(0, 0, 0.1px);
+        &:not(.external) {
+          box-shadow: inset -5px 0px 5px -5px #0005;
+        }
+      }
+
+      .inactive {
+        user-select: none;
+        opacity: 0.6;
+      }
+
+      .custom-title {
+        text-align: center;
+        width: 100%;
+        padding: 0em !important;
+        padding-top: 2em;
+      }
+
+      .custom-page-content {
+        padding: 1em;
+      }
+
+      .custom-page.front {
+        border-radius: 0em 1em 1em 0;
+      }
+
+      .custom-page.back {
+        border-radius: 1em 0em 0em 1em;
+      }
+
+      .custom-leaf {
+        background-color: #0000 !important;
+      }
+
+      .custom-page-number {
+        font-size: 0.75em;
+        position: absolute;
+        bottom: 0.5em;
+      }
+
+      .front .custom-page-number {
+        right: 0.75em;
+      }
+
+      .back .custom-page-number {
+        left: 0.75em;
+      }
+
+      .custom-contents-row {
+        display: flex;
+        flex-flow: row nowrap;
+      }
+
+      .custom-contents-row .spacer {
+        flex: 1 1;
+        height: 1em;
+        border-bottom: 1px dashed #000;
+      }
+
+      .custom-contents-row .text {
+        flex: 0 0 auto;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: cursive;
+      }
+
+      body[onload] {
+        /*Cheesing the preview*/
+        transform: scale(1.5);
+        transform-origin: center top;
+      }
+
+      body[onload] .custom-leaf:nth-child(1) {
+        transform: rotate3d(0, 1, 0, -128deg) !important;
+      }
+
+      body[onload] .custom-leaf:nth-child(2) {
+        transform: rotate3d(0, 1, 0, -70deg) !important;
+      }
+
+      body[onload] .custom-leaf:nth-child(3) {
+        transform: rotate3d(0, 1, 0, -40deg) !important;
+      }
+
+      body[onload] div.custom-leaf:nth-child(4) > div:nth-child(1) {
+        background-color: #e76f51;
+      }
+      .custom-page{
+        padding:1em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="custom-flipbook aligned-center" id="custom-flipbook">
+      <div class="custom-leaf">
+        <div
+          class="custom-page front custom-title external"
+          style="background-color: #e76f51"
+        >
+          <h1>Custom Flip Book</h1>
+          <em>A dive into 3D CSS</em>
+        </div>
+        <div class="custom-page back" style="background-color: #2a9d8f">
+          <div class="custom-page-number">i</div>
+
+          <img src="https://picsum.photos/200/301" alt="" style="width: 100%" />
+        </div>
+      </div>
+      <div class="custom-leaf">
+        <div class="custom-page front" style="background-color: #2a9d8f">
+          <div class="custom-page-number">ii</div>
+          <h2>Contents</h2>
+          <div class="custom-contents-row">
+            <div class="text">Cat Ipsum</div>
+            <div class="spacer"></div>
+            <div class="text">1</div>
+          </div>
+          <div class="custom-contents-row">
+            <div class="text">Lorum Ipsum</div>
+            <div class="spacer"></div>
+            <div class="text">3</div>
+          </div>
+        </div>
+        <div class="custom-page back" style="background-color: #e9c46a">
+          <div class="custom-page-number">1</div>
+          <h2>Cat Ipsum</h2>
+          <p>
+            Attack like a vicious monster fight an alligator and win. Catty
+            ipsum chew the plant and love to play with owner's hair tie kick up
+            litter open the door, let me out, let me out, let me-out, let
+            me-aow, let meaow, meaow!
+          </p>
+        </div>
+      </div>
+      <div class="custom-leaf">
+        <div class="custom-page front" style="background-color: #e9c46a">
+          <div class="custom-page-number">2</div>
+          i meant to do that now i shall wash myself intently play riveting
+          piece on synthesizer keyboard see brother cat receive pets, attack out
+          of jealousy. Sit and stare. Sleep on my human's head cereal boxes make
+          for five star accommodation but whenever a door is opened, rush in
+          before the human, so chew foot.
+        </div>
+        <div class="custom-page back" style="background-color: #f4a261">
+          <div class="custom-page-number">3</div>
+          <h2>Lorum Ipsum</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquet
+            sagittis fringilla. Duis consequat nisl dui, non dignissim metus
+            mattis vitae. Vivamus eget mi eu purus sollicitudin gravida.
+          </p>
+        </div>
+      </div>
+      <div class="custom-leaf">
+        <div class="custom-page front" style="background-color: #f4a261">
+          <div class="custom-page-number">4</div>
+          <p>
+            Nulla vulputate porta orci eu scelerisque. Aliquam erat volutpat.
+            Nullam efficitur magna vitae augue finibus, id bibendum sem
+            dignissim. Nam sit amet erat metus. Curabitur dignissim diam
+            porttitor mauris cursus ultrices. Nulla et consectetur risus.
+            Integer in rhoncus turpis. Suspendisse potenti.
+          </p>
+        </div>
+        <div
+          class="custom-page back external"
+          style="background-color: #e76f51"
+        >
+          <img src="https://picsum.photos/200/300" alt="" style="width: 100%" />
+        </div>
+      </div>
+    </div>
+    <div class="controls aligned-center">
+      <button id="customPrevPage">&lt; Previous</button>
+      <button id="customNextPage">Next &gt;</button>
+    </div>
+    <script>
+      class CustomFlipBook {
+        constructor(bookElem) {
+          this.elems = {
+            book: bookElem,
+            leaves: bookElem.querySelectorAll(".custom-leaf"),
+            buttons: {
+              next: document.getElementById("customNextPage"),
+              prev: document.getElementById("customPrevPage"),
+            },
+          };
+          this.setupEvents();
+          this.currentPagePosition = 0;
+          this.turnPage(0);
+        }
+        setPagePosition(page, position, index) {
+          var transform = "";
+
+          transform =
+            "translate3d(0,0," +
+            (position < 0 ? 1 : -1) * Math.abs(index) +
+            "px)";
+
+          if (position < 0) {
+            transform += "rotate3d(0,1,0,-180deg)";
+            page.classList.add("turned");
+          } else {
+            page.classList.remove("turned");
+          }
+          if (page.style.transform != transform) {
+            page.style.transform = transform;
+          }
+        }
+        turnPage(delta) {
+          this.currentPagePosition += delta;
+          if (this.currentPagePosition < 0) {
+            this.currentPagePosition = 0;
+            return;
+          }
+          if (this.currentPagePosition > this.elems.leaves.length) {
+            this.currentPagePosition = this.elems.leaves.length;
+            return;
+          }
+          this.elems.leaves.forEach((page, index) => {
+            var pageNumber = index;
+            this.setPagePosition(
+              page,
+              pageNumber - this.currentPagePosition,
+              index
+            );
+          });
+
+          if (this.currentPagePosition == 0) {
+            this.elems.buttons.prev.setAttribute("disabled", "disabled");
+          } else if (this.currentPagePosition == this.elems.leaves.length) {
+            this.elems.buttons.next.setAttribute("disabled", "disabled");
+          } else {
+            this.elems.buttons.next.removeAttribute("disabled");
+            this.elems.buttons.prev.removeAttribute("disabled");
+          }
+        }
+        setupEvents() {
+          document
+            .getElementById("customNextPage")
+            .addEventListener("click", () => {
+              this.turnPage(1);
+            });
+          document
+            .getElementById("customPrevPage")
+            .addEventListener("click", () => {
+              this.turnPage(-1);
+            });
+        }
+      }
+
+      var customFlipBook = new CustomFlipBook(
+        document.getElementById("custom-flipbook")
+      );
+    </script>
+  </body>
+</html>

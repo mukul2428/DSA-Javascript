@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Image Comparison Slider</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        display: grid;
+        height: 100%;
+        place-items: center;
+        background-color: #264653;
+      }
+      .image-wrapper {
+        position: relative;
+        height: 500px;
+        width: 750px;
+        overflow: hidden;
+        background: #fff;
+        border: 7px solid #fff;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+      }
+      .image-wrapper .image-container {
+        height: 100%;
+        width: 100%;
+        display: flex;
+      }
+      .image-wrapper .image-container .image-before {
+        height: 100%;
+        width: 100%;
+        background: url("img.jpg") no-repeat;
+      }
+      .image-wrapper .image-container .image-after {
+        position: absolute;
+        height: 100%;
+        width: 50%;
+        background: url("img.png") no-repeat;
+      }
+      .image-wrapper .comparison-slider {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 99;
+      }
+      .image-wrapper .comparison-slider input {
+        width: 100%;
+        outline: none;
+        background: none;
+        -webkit-appearance: none;
+      }
+      .comparison-slider input::-webkit-slider-thumb {
+        height: 486px;
+        width: 3px;
+        background: none;
+        -webkit-appearance: none;
+        cursor: col-resize;
+      }
+      .comparison-slider .drag-line {
+        width: 3px;
+        height: 486px;
+        position: absolute;
+        left: 49.85%;
+        pointer-events: none;
+      }
+      .comparison-slider .drag-line::before,
+      .comparison-slider .drag-line::after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 222px;
+        background: #fff;
+      }
+      .comparison-slider .drag-line::before {
+        top: 0;
+      }
+      .comparison-slider .drag-line::after {
+        bottom: 0;
+      }
+      .comparison-slider .drag-line span {
+        height: 42px;
+        width: 42px;
+        border: 3px solid #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .comparison-slider .drag-line span::before,
+      .comparison-slider .drag-line span::after {
+        position: absolute;
+        content: "";
+        top: 50%;
+        border: 10px solid transparent;
+        border-bottom-width: 0px;
+        border-right-width: 0px;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      .comparison-slider .drag-line span::before {
+        left: 40%;
+        border-left-color: #fff;
+      }
+      .comparison-slider .drag-line span::after {
+        left: 60%;
+        border-top-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="image-wrapper">
+      <div class="image-container">
+        <div class="image-before"></div>
+        <div class="image-after"></div>
+      </div>
+      <div class="comparison-slider">
+        <div class="drag-line">
+          <span></span>
+        </div>
+        <input type="range" min="0" max="100" value="50" />
+      </div>
+    </div>
+
+    <script>
+      const comparisonSlider = document.querySelector(
+        ".comparison-slider input"
+      );
+      const afterImage = document.querySelector(
+        ".image-container .image-after"
+      );
+      const dragLine = document.querySelector
+        (".comparison-slider .drag-line");
+      comparisonSlider.oninput = () => {
+        let sliderValue = comparisonSlider.value;
+        dragLine.style.left = sliderValue + "%";
+        afterImage.style.width = sliderValue + "%";
+      };
+    </script>
+  </body>
+</html>
